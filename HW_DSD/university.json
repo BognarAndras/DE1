@@ -1,0 +1,24 @@
+{
+    "university":[
+          {"students":[
+              "studentsid","name","programs","grade"
+              ]
+          },
+          {"programs":[
+              "programsid","name","admin","head"
+              ]
+          },
+          {"course":[
+              "courseid","name"
+              ]
+          },
+          {"faculty":[
+              "facultyid","name"
+              ]
+          },
+          {"admin":[
+              "admindid","name"
+              ]
+          }
+        ]
+    }
