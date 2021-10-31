@@ -1,0 +1,27 @@
+---
+title: "Term Project 1 - Peaks"
+author: "A. BOGNAR"
+doutput:
+  pdf_document: default
+urlcolor: red
+---
+
+# Loading data
+
+Changes made from raw to clean:
+
+- Date format to SQL readable
+- Commas removed to allow separation.
+- Duplicate Primary keys found: Expeditions 1 KANG10101, members KANG10101
+# 
+
+
+## Otletek
+
+- Analytic questions: 
+- Extract:
+- Transform:
+- Load: 
+- Stored: 1. By country peak, Number of peaks reached, category levels of peak
+- Trigger: if added new peak in other 2 table, create it, if reached unreached, change it
+- Views: High categories, 
