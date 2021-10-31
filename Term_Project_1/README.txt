@@ -1,4 +1,4 @@
-# Term Project 1. - A. BOGNAR: Peaks Project
+# **Term Project 1. - A. BOGNAR: Peaks Project**
 
 Using the [Himalayan Climbing]("https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-22/readme.md") dataset of the [Tidy Tuesdays]("https://github.com/rfordatascience/tidytuesday") project, I aim to answer basic questions about the history of climbing the greatest mountain of the world while showcasing the data workflow steps learned during the course.
 
