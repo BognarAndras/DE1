@@ -37,3 +37,23 @@ ORDER BY peak_height DESC;
 SELECT * FROM Heights;
 SELECT COUNT(Height_category) AS Heighest_Peak_Count FROM Heights WHERE Height_category = 'Highest Peaks';
 -- Answer: 4.
+
+-- Finally which country produced the most succesful leaders? 
+DROP VIEW IF EXISTS Leaders;
+
+CREATE VIEW `Leaders` AS
+SELECT leader_country, leader_age, peak_name, expedition_countries
+FROM peaks_reached 
+ORDER BY leader_country;
+
+SELECT * FROM Leaders;
+SELECT leader_country, COUNT(leader_country) AS Number_of_Success
+FROM peaks_reached 
+GROUP BY leader_country 
+ORDER BY Number_of_Success DESC;
+SELECT leader_country, AVG(leader_age) AS AVG_Age 
+FROM peaks_reached 
+WHERE leader_age != 9999999
+GROUP BY leader_country 
+ORDER BY AVG_Age;
+-- 100 successful missions lead by Japan solely.
