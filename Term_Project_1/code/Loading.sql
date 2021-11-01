@@ -1,11 +1,14 @@
-DROP SCHEMA IF EXISTS Peak;
-CREATE SCHEMA Peak;
-USE peak;
+-- Creating New schema .
 
 SHOW VARIABLES LIKE "secure_file_priv";
 SHOW VARIABLES LIKE "local_infile";
 SET GLOBAL local_infile = true;
 
+DROP SCHEMA IF EXISTS Peak;
+CREATE SCHEMA Peak;
+USE peak;
+
+-- Creating First Tables. 
 
 DROP TABLE IF EXISTS expeditions;
 
@@ -27,6 +30,7 @@ hired_staff_deaths integer,
 oxygen_used integer,
 trekking_agency varchar(255));
 
+-- For different Op.Systems change Line Feed Character. Also download clean .csv files and change local path.
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/expeditions.csv'
 INTO TABLE expeditions
@@ -42,7 +46,9 @@ highpoint_metres = IF(@highpoint_metres = 'NA' , 9999999 , @highpoint_metres),
 oxygen_used = IF(@oxygen_used = 'TRUE' , 1 , 0),
 trekking_agency = IF(@trekking_agency = 'NA' , 'Unknown' , @trekking_agency);
 
-# Note: dates, highpoint_meters placeholder used. Oxygen_used as binary.
+-- Notes: dates, binary values and integer values with missing observations are changed with placeholders as
+-- per tidy table standards. 
+
 
 
 DROP TABLE IF EXISTS members;
@@ -70,6 +76,7 @@ injured integer,
 injury_type varchar(255),
 injury_height_metres integer);
 
+-- Again, path and Line Feed might be changed.
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/members.csv'
 INTO TABLE members
@@ -94,8 +101,6 @@ injured = IF(@injured = 'TRUE' , 1 , 0),
 injury_type = IF(@injury_type = 'NA' , 'Unknown' , @injury_type),
 injury_height_metres = IF(@injury_height_metres = 'NA' , 9999999 , @injury_height_metres);
 
-SELECT * FROM members;
-
 
 DROP TABLE IF EXISTS peaks;
 
@@ -109,6 +114,7 @@ first_ascent_year integer,
 first_ascent_country varchar(255),
 first_ascent_expedition_id varchar(9));
 
+-- Again, path and Line Feed might be changed.
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/peaks.csv'
 INTO TABLE peaks
@@ -121,5 +127,3 @@ peak_alternative_name = IF(@peak_alternative_name = 'NA' , 'Unknown' , @peak_alt
 first_ascent_year = IF(@first_ascent_year = 'NA' , 9999999 , @first_ascent_year),
 first_ascent_country = IF(@first_ascent_country = 'NA' , 'Unknown' , @first_ascent_country),
 first_ascent_expedition_id = IF(@first_ascent_expedition_id = 'NA' , 'Unknown' , @first_ascent_expedition_id);
-
-SELECT * FROM peaks;

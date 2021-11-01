@@ -1,10 +1,28 @@
 ---
 title: "Term Project 1 - Peaks"
 author: "A. BOGNAR"
-doutput:
+output:
   pdf_document: default
 urlcolor: red
 ---
+
+# Introduction, File Structure
+
+The Tidy Tuesdays is a great practice project that was designed mainly for R. However, it contains several relational databases, one of which is the [**Himalayan Climbing Expeditions**]("https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-22/readme.md"). The data was collected until from 1905 to Spring 2019. To see further details check the [original source]("https://www.himalayandatabase.com/").
+
+
+In my project, I focused on building a data workflow similar to the one leared during the course.
+
+To run the project all one has to do is:
+
+
+1. Download the 3 [**Clean** csv files]("https://github.com/BognarAndras/DE1/tree/main/Term_Project_1/clean") and save them in your MySQL Upload Folder.
+2. Run the SQL files in the following order:
+    + [Loading]("https://raw.githubusercontent.com/BognarAndras/DE1/main/Term_Project_1/code/Loading.sql"). Note that this is the only file where codes have to be changed.
+    + [Cleaning]("https://raw.githubusercontent.com/BognarAndras/DE1/main/Term_Project_1/code/Cleaning.sql")
+    + [Analytical Layer and Triggers]("https://raw.githubusercontent.com/BognarAndras/DE1/main/Term_Project_1/code/Analytical_Layer_and_Triggers.sql")
+    + [Views]("https://raw.githubusercontent.com/BognarAndras/DE1/main/Term_Project_1/code/Views.sql")
+
 
 # Data and Analytics Questions
 
@@ -21,12 +39,6 @@ Changes made from raw to clean:
 
 # Analytical Layer, ETL, Trigger
 
-- Analytic questions: 
-- Extract:
-- Transform:
-- Load: 
-- Stored: 1. By country peak, Number of peaks reached, category levels of peak
-- Trigger: if added new peak in other 2 table, create it, if reached unreached, change it
-- Views: High categories, 
+
 
 # Data Mart, Views
