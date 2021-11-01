@@ -1,1 +1,0 @@
-Term Project 1.
