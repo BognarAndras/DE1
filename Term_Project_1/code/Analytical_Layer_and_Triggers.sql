@@ -1,4 +1,6 @@
---  Analytical Layer 1: Peaks reached with group leaders avaliable
+USE peak;
+
+--  Analytical Layer: Peaks reached with group leaders avaliable.
 
 SELECT p.peak_id, p.peak_name, p.height_metres, p.first_ascent_country, e.highpoint_date, e.members, e.hired_staff, e.member_deaths, m.age, m.citizenship
 FROM peaks_fixed AS p
@@ -8,18 +10,17 @@ AND p.climbing_status = 'Climbed'
 INNER JOIN members_fixed AS m
 ON e.expedition_id = m.expedition_id 
 AND m.expedition_role = 'Leader';
---  468 peaks
+--  468 total peaks in peaks table.
 SELECT *
 FROM peaks_fixed AS p;
--- 333 with expedition_id 
+-- 333 has an expedition_id which tells us the expedition that first reached it's peak.
 SELECT p.peak_name, p.height_metres, p.first_ascent_country
 FROM peaks_fixed AS p
 INNER JOIN expeditions AS e
 ON p.first_ascent_expedition_id = e.expedition_id;
-
-
-
-
+-- Further 8 have no expedition Leader assigned and 1 has unclimbed status.
+-- We exclude these and 324 peaks remain for analysis.  
+-- Let's Create the layer. 
 
 DROP PROCEDURE IF EXISTS CreatePeaksReached;
 
@@ -63,9 +64,9 @@ DELIMITER ;
 
 
 CALL CreatePeaksReached();
-SELECT * FROM peaks_reached;
 
-
+-- Next, if any peaks are updated with first_ascent_expedition_id our table should be expanded to include them.
+-- Trigger is used accordingly.
 
 DROP TRIGGER IF EXISTS Peak_Reached; 
 
@@ -76,7 +77,7 @@ AFTER UPDATE
 ON peaks_fixed FOR EACH ROW
 BEGIN
 
-	-- archive the order and assosiated table entries to product_sales
+	-- archive the peaks_reached and assosiated table entries are updated
     INSERT INTO peaks_reached
 	SELECT 	p.peak_id,
 			p.peak_name, 
@@ -110,16 +111,17 @@ END $$
 
 DELIMITER ;
 
--- Testing 
+-- Check a change example: 
 SHOW TRIGGERS;
 SELECT * FROM peaks_reached;
 --  324 ROWS!
--- Neccessary information added: Dhaulagiri   https://explorersweb.com/2020/06/09/a-brief-climbing-history-of-nepals-highest-peaks/
+-- Neccessary information added to related tables: 
+-- Information from: Dhaulagiri   https://explorersweb.com/2020/06/09/a-brief-climbing-history-of-nepals-highest-peaks/
 -- 1960, May 13, by the Swiss Austrian Expedition 
 
 INSERT INTO expeditions VALUES('DGAR00001','DGAR','Dhaulagiri',1960,'Spring','1900-01-01','1960-05-13','1900-01-01','Success (main peak)',6638,1,0,6,0,0,'Unknown');
 INSERT INTO members_fixed VALUES('DGAR00001','DGAR00001-01','DGAR','Dhaulagiri',1960,'Spring','M',9999999,'Swiss','Leader',6,6638,1,0,0,0,'Unknown',9999999,0,'Unknown',9999999);
--- Update made:
+-- Now update can be made to include succesful expedition:
 UPDATE peaks_fixed
 SET 
 climbing_status = 'Climbed',
@@ -129,11 +131,14 @@ WHERE peak_id = 'DGAR';
 
 SELECT * FROM peaks_reached;
 -- 325 Rows!
--- To replicate revert change, call table and update again.
+-- To replicate revert changes and call table.
+-- I.e. uncomment and run below:
 
-UPDATE peaks_fixed
-SET 
-climbing_status = 'Climbed',
-first_ascent_expedition_id = 'Unknown'
-WHERE peak_id = 'DGAR';
-CALL CreatePeaksReached();
+-- UPDATE peaks_fixed
+-- SET 
+-- climbing_status = 'Climbed',
+-- first_ascent_expedition_id = 'Unknown'
+-- WHERE peak_id = 'DGAR';
+-- CALL CreatePeaksReached();
+
+-- Afterwards, go back to line 127 and run the update. 
